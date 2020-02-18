@@ -12,6 +12,7 @@ using StockMusicMasters.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.VisualStudio.Web.BrowserLink;
 
 namespace StockMusicMasters
 {
@@ -33,14 +34,18 @@ namespace StockMusicMasters
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            // Inject the music repository
+            services.AddTransient<IMusicRepository, MusicRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context)
         {
             if (env.IsDevelopment())
             {
+                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -62,15 +67,35 @@ namespace StockMusicMasters
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=home}/{action=index}/{id?}");
+
+                // USER AREA ROUTES
 
                 endpoints.MapAreaControllerRoute(
-                    name: "Admin",
-                    areaName: "Admin",
-                    pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+                    name: "user",
+                    areaName: "user",
+                    pattern: "user/{controller=userhome}/{action=userindex}/{id?}");
+
+                // ADMIN AREA ROUTES
+
+                endpoints.MapAreaControllerRoute(
+                    name: "admin",
+                    areaName: "admin",
+                    pattern: "admin/{controller=adminhome}/{action=adminindex}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "admin",
+                    areaName: "admin",
+                    pattern: "admin/{controller=adminhome}/{action=adminindex}/{id?}");
 
                 endpoints.MapRazorPages();
             });
+
+            // Apply migration
+            context.Database.Migrate();
+
+            // Seed the database
+            SeedData.Seed(app);
         }
     }
 }

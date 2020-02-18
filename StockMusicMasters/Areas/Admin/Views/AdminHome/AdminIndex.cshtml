@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    ViewData["ActivePage"] = ManageAdminNav.Index;
+}
+
+<h1>Here Is the Admin Index Page Loaded in the correct location</h1>
+<div class="row">
+    <div class="col-6">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ChartJS" />
+    <script src="/js/adminstats.js"></script>
+}
+

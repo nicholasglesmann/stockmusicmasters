@@ -7,22 +7,8 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
+/* CUSTOM BACKGROUNDS */
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -67,5 +53,151 @@ body {
   bottom: 0;
   width: 100%;
   white-space: nowrap;
+  /* Set the fixed height of the footer here */
+  height: 60px;
   line-height: 60px; /* Vertically center the text there */
+}
+
+/* Styles for the front page*/
+.front-img {
+    object-fit: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+.img-overlay {
+    position: relative;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(52,58,64,0.7);
+}
+
+.title-overlay {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+#big-logo {
+    min-width: 38vw;
+}
+
+.center {
+    text-align: center;
+}
+
+#mobile-navbar-fix {
+    height: 55px;
+}
+
+#logout-button:focus {
+    outline: none;
+}
+
+#logout-button:hover {
+    color: #cbd3da !important;
+}
+
+.slide-down {
+    animation-name: slide-down;
+    animation-duration: .2s;
+}
+
+.slide-up {
+    animation-name: slide-up;
+    animation-duration: .1s;
+}
+
+@keyframes slide-down {
+    from { top: -100px; }
+    to { top: 0px; }
+}
+
+@keyframes slide-up {
+    from { top: 0px; }
+    to { top: -100px; }
+}
+
+/* ...... */
+
+.audio-player {
+}
+
+.manage-songs-audio-player {
+    height: 30px;
+    width: 90%;
+}
+
+.manage-songs-button {
+    width: 48px;
+}
+
+.music-dropdown {
+    z-index: 1010000000;
+    position: relative;
+}
+
+.tag-container {
+    max-width: 45%;
+    display: block;
+    align-self: center;
+    margin: auto;
+}
+
+.tag-button {
+    display: inline-block;
+}
+
+input[type=checkbox] {
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+    margin-top: 7px;
+}
+
+#music-list form h6 {
+    font-size: 1.25em;
+}
+
+#music-list form button {
+    font-size: 1em;
+}
+
+@media (min-width: 576px) {
+    #big-logo {
+        min-height: 75px;
+    }
+}
+
+@media (min-width: 761px) {
+    #big-logo {
+        min-height: 115px;
+    }
+}
+
+@media (max-width: 760px) {
+    #front-page-tagline {
+        font-size: 1.5em;
+    }
+
+    #music-list form h5{
+        font-size: 1.5em;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 491px) {
+    #front-page-tagline {
+        font-size: 1.25em;
+    }
 }

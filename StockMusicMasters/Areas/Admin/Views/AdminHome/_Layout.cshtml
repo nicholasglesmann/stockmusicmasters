@@ -1,0 +1,23 @@
+﻿@{ 
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Admin Management</h1>
+    <div>
+        <h4>Modify admin things</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-3 bg-light p-0">
+                <partial name="_AdminNav" />
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

@@ -1,8 +1,84 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
+
+    var allMoods = (List<MoodTag>)ViewData["allMoods"];
+    var allInstruments = (List<InstrumentTag>)ViewData["allInstruments"];
+    var allGenres = (List<GenreTag>)ViewData["allGenres"];
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="img-overlay">
+    <img src="~/files/images/pianofrontpage.jpg" class="front-img" alt="">
+    <div class="project-overlay"></div>
+    <div class="title-overlay">
+        <div class="container py-2">
+            <div class="row justify-content-center">
+                <div class="col-10 text-center">
+                    <img class="img-fluid" id="big-logo" src="/files/images/smmlogo.svg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="container py-2">
+            <div class="row justify-content-center">
+                <div class="col-10 text-center">
+                    <h3 id="front-page-tagline" class="text-center font-italic font-weight-normal text-light">High Quality • Low Cost • Royalty Free</h3>
+                </div>
+            </div>
+        </div>
+        <div class="container py-2">
+            <div class="text-center"><a class="btn btn-lg btn-primary" asp-controller="Home" asp-action="Music">Find Music</a></div>
+        </div>
+    </div>
 </div>
+
+
+
+<section id="start">
+    <div class="container text-center mt-3">
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-4 jumbotron p-2 m-2">
+                <h1 class="text-center text-dark">Genres</h1>
+            </div>
+        </div>
+        <div class="row m-1 ml-4 mb-3">
+            @for (int genreNumber = 1; genreNumber <= allGenres.Count; genreNumber++)
+            {
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <a class="btn btn-dark btn-block my-3" asp-controller="Home" asp-action="GenreSelected" asp-route-id="@allGenres[genreNumber -1].Tag">@allGenres[genreNumber - 1].Tag</a>
+                </div>
+            }
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-4 jumbotron p-2 m-2">
+                <h1 class="text-center text-dark">Moods</h1>
+            </div>
+        </div>
+        <div class="row m-1 ml-4 mb-3">
+            @for (int moodNumber = 1; moodNumber <= allMoods.Count; moodNumber++)
+            {
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <a class="btn btn-dark btn-block my-3" asp-controller="Home" asp-action="MoodSelected" asp-route-id="@allMoods[moodNumber -1].Tag">@allMoods[moodNumber - 1].Tag</a>
+                </div>
+            }
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-4 jumbotron p-2 m-2">
+                <h1 class="text-center text-dark">Instruments</h1>
+            </div>
+        </div>
+        <div class="row m-1 ml-4 mb-3">
+            @for (int instrumentNumber = 1; instrumentNumber <= allInstruments.Count; instrumentNumber++)
+            {
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <a class="btn btn-dark btn-block my-3" asp-controller="Home" asp-action="InstrumentSelected" asp-route-id="@allInstruments[instrumentNumber -1].Tag">@allInstruments[instrumentNumber - 1].Tag</a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/js/frontpage.js"></script>
+}
+

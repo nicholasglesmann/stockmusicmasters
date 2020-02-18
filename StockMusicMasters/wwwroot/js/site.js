@@ -2,3 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+$(document).ready(function () {
+    $('#small-logo').removeClass('d-none');
+    $('#hack').removeClass('d-none');
+    $('#mobile-navbar-fix').removeClass('d-inline-block');
+});
