@@ -1,0 +1,132 @@
+﻿@model MusicTrack
+@{
+    ViewData["Title"] = ManageAdminNav.EditSong;
+    ViewData["ActivePage"] = ManageAdminNav.EditSong;
+
+    var allMoods = (List<MoodTag>)ViewData["allMoods"];
+    var allInstruments = (List<InstrumentTag>)ViewData["allInstruments"];
+    var allGenres = (List<GenreTag>)ViewData["allGenres"];
+
+    string genreFor = "genreRadio";
+    string moodFor = "moodCheck";
+    string instrumentFor = "instrumentCheck";
+
+    string mood = "mood";
+    string instrument = "instrument";
+
+    string moodChecked = "";
+    string instrumentChecked = "";
+}
+<div class="container">
+    <form action="/Admin/EditSong" method="post">
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-3 jumbotron bg-dark p-2 mb-2">
+                <h3 class="text-center text-white">Song Info</h3>
+            </div>
+        </div>
+
+        <div class="row m-1 ml-4 mb-3">
+            <div class="col">
+                <label for="songName">Song Name</label>
+                <input type="text" class="form-control" id="songName" name="songName" aria-describedby="songNameHelp" placeholder="Enter song name" value="@Model.Name" required>
+            </div>
+            <div class="col">
+                <label for="fileName">File Name</label>
+                <input type="text" class="form-control" id="fileName" name="fileName" aria-describedby="fileNameHelp" placeholder="Enter file name" value="@Model.FileName" required>
+                <small id="fileNameHelp" class="form-text text-muted">Must end with ".mp3" or ".wav"</small>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-3 jumbotron bg-dark p-2 mb-2">
+                <h3 class="text-center text-white">Genres</h3>
+            </div>
+        </div>
+        <div class="row m-1 ml-4 mb-3">
+           @for (int genreNumber = 1; genreNumber <= allGenres.Count; genreNumber++)
+            {
+            <div class="form-check col-4 col-sm-4 col-md-3 col-lg-3">
+                @if (Model.Genre.Tag == allGenres[genreNumber - 1].Tag)
+                {
+                    <input class="form-check-input" name="genre" type="radio" value="@allGenres[genreNumber - 1].Tag" id="@(genreFor + genreNumber.ToString())" checked>
+                }
+                else
+                {
+                    <input class="form-check-input" name="genre" type="radio" value="@allGenres[genreNumber - 1].Tag" id="@(genreFor + genreNumber.ToString())">
+                }
+                <label class="form-check-label" for="@(genreFor + genreNumber.ToString())">
+                    @allGenres[genreNumber - 1].Tag
+                </label>
+            </div>
+            }
+        </div>
+
+
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-3 jumbotron bg-dark p-2 m-2">
+                <h3 class="text-center text-white">Moods</h3>
+            </div>
+        </div>
+        <div class="row p-2 m-1 ml-4 mb-3">
+           @for (int moodNumber = 1; moodNumber <= allMoods.Count; moodNumber++)
+           {
+               // Check if the current mood is already checked in the Music Track
+               @foreach (MoodTag m in Model.Moods)
+                {
+                   if (m.Tag == allMoods[moodNumber - 1].Tag)
+                   {
+                       moodChecked = "checked";
+                   }
+                }
+                <div class="form-check col-4 col-sm-4 col-md-3 col-lg-3">
+                    <input class="form-check-input" name="@(mood + moodNumber.ToString())" type="checkbox" value="@allMoods[moodNumber - 1].Tag" id="@(moodFor + moodNumber.ToString())" @moodChecked>
+                    <label class="form-check-label" for="@(moodFor + moodNumber.ToString())">
+                        @allMoods[moodNumber - 1].Tag
+                    </label>
+                </div>
+
+                @(moodChecked = "");
+            }
+        </div>
+
+
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-3 jumbotron bg-dark p-2 m-2">
+                <h3 class="text-center text-white">Instruments</h3>
+            </div>
+        </div>
+        <div class="row p-2 m-1 ml-4 mb-3">
+            @for (int instrumentNumber = 1; instrumentNumber <= allInstruments.Count; instrumentNumber++)
+            {
+                // Check if the current instrument is already checked in the Music Track
+                @foreach (InstrumentTag i in Model.Instruments)
+                {
+                    if (i.Tag == allInstruments[instrumentNumber - 1].Tag)
+                    {
+                        instrumentChecked = "checked";
+                    }
+                }
+                <div class="form-check col-4 col-sm-4 col-md-3 col-lg-3">
+                    <input class="form-check-input" name="@(instrument + instrumentNumber.ToString())" type="checkbox"
+                           value="@allInstruments[instrumentNumber - 1].Tag" id="@(instrumentFor + instrumentNumber.ToString())"
+                           @instrumentChecked>
+                    <label class="form-check-label" for="@(instrumentFor + instrumentNumber.ToString())">
+                        @allInstruments[instrumentNumber - 1].Tag
+                    </label>
+                </div>
+
+                @(instrumentChecked = "");
+            }
+        </div>
+
+        <input hidden name="id" type="number" value="@Model.ID" />
+
+        <div class="row justify-content-center m-2 my-5">
+            <button type="submit" class="btn btn-lg btn-primary mr-2">Update Song</button>
+            <a href="/admin" class="btn btn-lg btn-danger ml-2">Cancel</a>
+        </div>
+    </form>
+
+</div>
+
+

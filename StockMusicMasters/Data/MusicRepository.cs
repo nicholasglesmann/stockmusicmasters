@@ -86,16 +86,45 @@ namespace StockMusicMasters.Data
             }
         }
 
+        public void RefreshMusicTracks()
+        {
+            musicTracks = new List<MusicTrack>();
+
+            musicTracks = context.MusicTracks.Include(m => m.Genre).Include(x => x.MusicTrackMoodTags).Include(x => x.MusicTrackInstrumentTags).ToList();
+
+            foreach (MusicTrack musicTrack in musicTracks)
+            {
+
+                foreach (MusicTrackMoodTag mt in musicTrack.MusicTrackMoodTags)
+                {
+                    musicTrack.Moods.Add(MoodList.First(m => m.ID == mt.MoodTagID));
+                }
+
+                foreach (MusicTrackInstrumentTag it in musicTrack.MusicTrackInstrumentTags)
+                {
+                    musicTrack.Instruments.Add(InstrumentList.First(m => m.ID == it.InstrumentTagID));
+                }
+
+            }
+        }
+
         public void SaveSongToDatabase(MusicTrack musicTrack)
         {
             context.MusicTracks.Add(musicTrack);
             context.SaveChanges();
+            RefreshMusicTracks();
+        }
+
+        public void EditSongInDatabase(MusicTrack musicTrack)
+        {
+
         }
 
         public void DeleteSongFromDatabase(MusicTrack musicTrack)
         {
             context.MusicTracks.Remove(musicTrack);
             context.SaveChanges();
+            RefreshMusicTracks();
         }
 
         public void DeleteMusicTrackInstrumentTags(MusicTrack musicTrack)

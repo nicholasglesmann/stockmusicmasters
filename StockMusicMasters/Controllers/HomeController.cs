@@ -118,15 +118,11 @@ namespace StockMusicMasters.Controllers
 
         public PhysicalFileResult GetFile(string fileName)
         {
+
             string filePath = _hostingEnvironment.WebRootPath + "\\files\\musictracks\\" + fileName;
 
             return PhysicalFile(filePath, MimeTypes.GetMimeType(filePath), Path.GetFileName(filePath));
         }
-
-
-
-
-
 
         public IActionResult Privacy()
         {

@@ -12,37 +12,34 @@
 </div>
 @foreach (var music in Model)
 {
-    <div class="row justify-content-between">
-        <div class="col-12 col-md-8 col-lg-5 my-md-auto mt-1 text-center text-md-left">
-            <h6 class="text-dark">@music.Name</h6>
-        </div>
-        @*<div class="col-12 col-md-4 col-lg-2 my-md-auto mb-1 text-center text-lg-left">
-                <h6 class="font-italic text-dark">@music.Genre.Tag</h6>
-            </div>*@
-        <div class="col-12 col-md-8 col-lg-4 my-md-auto my-2 text-md-left">
-            <audio class="manage-songs-audio-player align-middle" controls controlsList="nodownload">
-                <source src="~/files/musictracks/@music.FileName" />
-            </audio>
-        </div>
-        <div class="col-12 col-md-4 col-lg-1 text-center">
-            <form action="/Home/Download" method="post" class="align-middle">
-                <input class="form-control-plaintext" type="hidden" style="position: absolute;" name="fileName" readonly value="@music.FileName" />
-                <button type="submit" class="btn btn-primary manage-songs-button"><i class="fas fa-file-download fa-lg"></i></button>
-            </form>
-        </div>
-        <div class="col-12 col-md-4 col-lg-1 text-center">
-            <form action="/Home/Download" method="post" class="align-middle">
-                <input class="form-control-plaintext" type="hidden" style="position: absolute;" name="fileName" readonly value="@music.FileName" />
-                <button type="submit" class="btn btn-secondary text-white manage-songs-button"><i class="fas fa-edit fa-lg"></i></button>
-            </form>
-        </div>
-        <div class="col-12 col-md-4 col-lg-1 text-center">
-            <form action="/admin/delete" method="post" class="align-middle">
-                <input class="form-control-plaintext" type="hidden" style="position: absolute;" name="id" readonly value="@music.ID" />
-                <button type="submit" class="btn btn-danger manage-songs-button"><i class="fas fa-trash-alt fa-lg"></i></button>
-            </form>
-        </div>
+<div class="row">
+    <div class="col-12 col-lg-6 my-md-auto text-center text-lg-left">
+        <h6 class="text-dark my-auto">@music.ID. @music.Name</h6>
     </div>
+    <div class="col-12 col-lg-3 my-2 my-lg-auto px-0 mx-0 text-center">
+        <audio class="manage-songs-audio-player align-middle" controls controlsList="nodownload">
+            <source src="~/files/musictracks/@music.FileName" />
+        </audio>
+    </div>
+    <div class="col-4 col-lg-1 text-center">
+        <form action="/Home/Download" method="post" class="align-middle">
+            <input class="form-control-plaintext" type="hidden" style="position: absolute;" name="fileName" readonly value="@music.FileName" />
+            <button type="submit" class="btn btn-primary manage-songs-button"><i class="fas fa-file-download fa-lg"></i></button>
+        </form>
+    </div>
+    <div class="col-4 col-lg-1 text-center">
+        <form action="/admin/editsong" method="get" class="align-middle">
+            <input class="form-control-plaintext" type="hidden" style="position: absolute;" name="id" readonly value="@music.ID" />
+            <button type="submit" class="btn btn-secondary text-white manage-songs-button"><i class="fas fa-edit fa-lg"></i></button>
+        </form>
+    </div>
+    <div class="col-4 col-lg-1 text-center">
+        <form action="/admin/delete" method="post" class="align-middle">
+            <input class="form-control-plaintext" type="hidden" style="position: absolute;" name="id" readonly value="@music.ID" />
+            <button type="submit" class="btn btn-danger manage-songs-button"><i class="fas fa-trash-alt fa-lg"></i></button>
+        </form>
+    </div>
+</div>
     <div class="row">
         <div class="col">
             <hr class="my-2" />
