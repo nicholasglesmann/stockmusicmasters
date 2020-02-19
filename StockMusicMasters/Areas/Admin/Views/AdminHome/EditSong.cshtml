@@ -17,6 +17,12 @@
     string moodChecked = "";
     string instrumentChecked = "";
 }
+<h1 class="text-center">@ManageAdminNav.EditSong</h1>
+<div class="row">
+    <div class="col">
+        <hr class="my-2" />
+    </div>
+</div>
 <div class="container">
     <form action="/Admin/EditSong" method="post">
         <div class="row justify-content-center">
@@ -43,21 +49,21 @@
             </div>
         </div>
         <div class="row m-1 ml-4 mb-3">
-           @for (int genreNumber = 1; genreNumber <= allGenres.Count; genreNumber++)
+            @for (int genreNumber = 1; genreNumber <= allGenres.Count; genreNumber++)
             {
-            <div class="form-check col-4 col-sm-4 col-md-3 col-lg-3">
-                @if (Model.Genre.Tag == allGenres[genreNumber - 1].Tag)
-                {
-                    <input class="form-check-input" name="genre" type="radio" value="@allGenres[genreNumber - 1].Tag" id="@(genreFor + genreNumber.ToString())" checked>
-                }
-                else
-                {
-                    <input class="form-check-input" name="genre" type="radio" value="@allGenres[genreNumber - 1].Tag" id="@(genreFor + genreNumber.ToString())">
-                }
-                <label class="form-check-label" for="@(genreFor + genreNumber.ToString())">
-                    @allGenres[genreNumber - 1].Tag
-                </label>
-            </div>
+                <div class="form-check col-4 col-sm-4 col-md-3 col-lg-3">
+                    @if (Model.Genre.Tag == allGenres[genreNumber - 1].Tag)
+                    {
+                        <input class="form-check-input" name="genre" type="radio" value="@allGenres[genreNumber - 1].Tag" id="@(genreFor + genreNumber.ToString())" checked>
+                    }
+                    else
+                    {
+                        <input class="form-check-input" name="genre" type="radio" value="@allGenres[genreNumber - 1].Tag" id="@(genreFor + genreNumber.ToString())">
+                    }
+                    <label class="form-check-label" for="@(genreFor + genreNumber.ToString())">
+                        @allGenres[genreNumber - 1].Tag
+                    </label>
+                </div>
             }
         </div>
 
@@ -68,15 +74,15 @@
             </div>
         </div>
         <div class="row p-2 m-1 ml-4 mb-3">
-           @for (int moodNumber = 1; moodNumber <= allMoods.Count; moodNumber++)
-           {
-               // Check if the current mood is already checked in the Music Track
-               @foreach (MoodTag m in Model.Moods)
+            @for (int moodNumber = 1; moodNumber <= allMoods.Count; moodNumber++)
+            {
+                // Check if the current mood is already checked in the Music Track
+                @foreach (MoodTag m in Model.Moods)
                 {
-                   if (m.Tag == allMoods[moodNumber - 1].Tag)
-                   {
-                       moodChecked = "checked";
-                   }
+                    if (m.Tag == allMoods[moodNumber - 1].Tag)
+                    {
+                        moodChecked = "checked";
+                    }
                 }
                 <div class="form-check col-4 col-sm-4 col-md-3 col-lg-3">
                     <input class="form-check-input" name="@(mood + moodNumber.ToString())" type="checkbox" value="@allMoods[moodNumber - 1].Tag" id="@(moodFor + moodNumber.ToString())" @moodChecked>

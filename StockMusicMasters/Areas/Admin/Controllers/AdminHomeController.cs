@@ -90,7 +90,7 @@ namespace StockMusicMasters.Areas.Admin.Controllers
 
             musicRepo.SaveSongToDatabase(song);
 
-            return RedirectToRoute("AdminIndex");
+            return RedirectToRoute("AdminManageSongs");
         }
 
         [Route("admin/editsong")]
@@ -119,7 +119,14 @@ namespace StockMusicMasters.Areas.Admin.Controllers
             song.Genre = genreTag;
             song.FileName = fileName;
 
-            List<MoodTag> moodTags = new List<MoodTag>();
+            musicRepo.DeleteMusicTrackMoodTags(song);
+            musicRepo.DeleteMusicTrackInstrumentTags(song);
+
+            song.Moods = new List<MoodTag>();
+            song.Instruments = new List<InstrumentTag>();
+            song.MusicTrackMoodTags = new List<MusicTrackMoodTag>();
+            song.MusicTrackInstrumentTags = new List<MusicTrackInstrumentTag>();
+
             for (int i = 0; i <= musicRepo.MoodList.Count; i++)
             {
                 string mood = "mood" + i.ToString();
@@ -134,9 +141,11 @@ namespace StockMusicMasters.Areas.Admin.Controllers
                     m.MoodTag = moodTag;
                     song.MusicTrackMoodTags.Add(m);
                 }
-
+            }
+            for (int i = 0; i <= musicRepo.InstrumentList.Count; i++)
+            {
                 string instrument = "instrument" + i.ToString();
-                value = collection[instrument];
+                string value = collection[instrument];
                 if (value != null)
                 {
                     InstrumentTag instrumentTag = musicRepo.GetInstrumentTagFromDatabase(value);
@@ -151,9 +160,9 @@ namespace StockMusicMasters.Areas.Admin.Controllers
 
             musicRepo.MusicTracks.Add(song);
 
-            musicRepo.SaveSongToDatabase(song);
+            musicRepo.UpdateSongInDatabase(song);
 
-            return RedirectToRoute("AdminIndex");
+            return RedirectToRoute("AdminManageSongs");
         }
 
         [Route("admin/delete")]

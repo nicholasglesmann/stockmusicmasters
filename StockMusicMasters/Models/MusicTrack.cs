@@ -24,7 +24,7 @@ namespace StockMusicMasters.Models
 
         public List<MusicTrackMoodTag> MusicTrackMoodTags { get; set; } = new List<MusicTrackMoodTag>();
 
-        public List<InstrumentTag> Instruments { get { return instruments; } }
+        public List<InstrumentTag> Instruments { get { return instruments; } set { instruments = value; } }
 
         public List<MusicTrackInstrumentTag> MusicTrackInstrumentTags { get; set; } = new List<MusicTrackInstrumentTag>();
 

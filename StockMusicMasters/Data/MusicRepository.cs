@@ -115,9 +115,11 @@ namespace StockMusicMasters.Data
             RefreshMusicTracks();
         }
 
-        public void EditSongInDatabase(MusicTrack musicTrack)
+        public void UpdateSongInDatabase(MusicTrack musicTrack)
         {
-
+            context.MusicTracks.Update(musicTrack);
+            context.SaveChanges();
+            RefreshMusicTracks();
         }
 
         public void DeleteSongFromDatabase(MusicTrack musicTrack)
@@ -129,20 +131,16 @@ namespace StockMusicMasters.Data
 
         public void DeleteMusicTrackInstrumentTags(MusicTrack musicTrack)
         {
-            if(musicTrack.Instruments.Count > 0)
-            {
-                foreach(InstrumentTag t in musicTrack.Instruments)
-                {
-                    DeleteMusicTrackInstrumentTag(t.ID, musicTrack.ID);
-                }
-            }
+            var tagsToDelete = context.MusicTrackInstrumentTags.Where(m => m.MusicTrackID == musicTrack.ID);
+            context.MusicTrackInstrumentTags.RemoveRange(tagsToDelete);
+            context.SaveChanges();
         }
 
-        public void DeleteMusicTrackInstrumentTag(int instrumentTagId, int musicTrackId)
+        public void DeleteMusicTrackMoodTags(MusicTrack musicTrack)
         {
-            //context.MusicTrackInstrumentTags.Remove(m => (
-            //    m.InstrumentTagID == instrumentTagId &&
-            //    m.MusicTrackID == musicTrackId));
+            var tagsToDelete = context.MusicTrackMoodTags.Where(m => m.MusicTrackID == musicTrack.ID);
+            context.MusicTrackMoodTags.RemoveRange(tagsToDelete);
+            context.SaveChanges();
         }
 
         public void AddMusicTrack(MusicTrack musicTrack)

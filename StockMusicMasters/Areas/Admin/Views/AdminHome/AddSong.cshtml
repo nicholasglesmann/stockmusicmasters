@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Add Song";
+    ViewData["Title"] = ManageAdminNav.AddSong;
     ViewData["ActivePage"] = ManageAdminNav.AddSong;
 
     var allMoods = (List<MoodTag>)ViewData["allMoods"];
@@ -16,6 +16,12 @@
     string genreChecked = "checked";
 
 }
+<h1 class="text-center">@ManageAdminNav.AddSong</h1>
+<div class="row">
+    <div class="col">
+        <hr class="my-2" />
+    </div>
+</div>
 <div class="container">
     <form action="/Admin/AddSong" method="post">
         <div class="row justify-content-center">
