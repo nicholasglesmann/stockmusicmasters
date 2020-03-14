@@ -8,6 +8,8 @@ using StockMusicMasters.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.CookiePolicy;
 
 namespace StockMusicMasters
 {
@@ -60,6 +62,14 @@ namespace StockMusicMasters
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context)
         {
+            app.Use(async (theContext, next) =>
+            {
+                theContext.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+                theContext.Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
+                theContext.Response.Headers.Add("Pragma", "no-cache");
+                theContext.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+                await next();
+            });
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -74,6 +84,12 @@ namespace StockMusicMasters
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                HttpOnly = HttpOnlyPolicy.Always,
+                Secure = CookieSecurePolicy.Always,
+                MinimumSameSitePolicy = SameSiteMode.None
+            });
 
             app.UseRouting();
 
