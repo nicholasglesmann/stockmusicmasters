@@ -21,6 +21,8 @@ namespace StockMusicMasters.Controllers
         IMusicRepository musicRepo;
         IWebHostEnvironment _hostingEnvironment;
 
+        // For unit testing
+        public HomeController(FakeMusicRepository repo) { musicRepo = repo;  }
 
         public HomeController(IMusicRepository musicRepo, ILogger<HomeController> logger, 
                               IWebHostEnvironment hostingEnvironment)
