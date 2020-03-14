@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -45,6 +46,7 @@ namespace StockMusicMasters.Controllers
         }
 
         [Route("music")]
+        [Authorize(Roles = "Standard,Admin")]
         public IActionResult Music()
         {
             // get the list of moods and store it in viewdata for music view

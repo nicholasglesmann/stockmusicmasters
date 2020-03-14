@@ -1,18 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using StockMusicMasters.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.VisualStudio.Web.BrowserLink;
 
 namespace StockMusicMasters
 {
@@ -30,14 +25,36 @@ namespace StockMusicMasters
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                    Configuration.GetConnectionString("Local")));
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+            });
+
+            services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultUI().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
             // Inject the music repository
             services.AddTransient<IMusicRepository, MusicRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,6 +113,38 @@ namespace StockMusicMasters
 
             // Seed the database
             SeedData.Seed(app);
+
+            // Create Default Accounts
+            CreateDefaultAccounts(app.ApplicationServices, Configuration).Wait();
+        }
+
+        public static async Task CreateDefaultAccounts(IServiceProvider serviceProvider, IConfiguration configuration)
+        {
+            UserManager<IdentityUser> userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] users = { "AdminUser", "StandardUser" };
+
+            foreach(string user in users)
+            {
+                string username = configuration["Data:" + user + ":Name"];
+                string email = configuration["Data:" + user + ":Email"];
+                string password = configuration["Data:" + user + ":Password"];
+                string role = configuration["Data:" + user + ":Role"];
+                if (await userManager.FindByNameAsync(username) == null)
+                {
+                    if (await roleManager.FindByNameAsync(role) == null)
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(role));
+                    }
+
+                    IdentityUser appUser = new IdentityUser { UserName = username, Email = email };
+                    IdentityResult result = await userManager.CreateAsync(appUser, password);
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(appUser, role);
+                    }
+                }
+            }
         }
     }
 }
