@@ -26,6 +26,7 @@ namespace StockMusicMasters.Controllers
             var tracks = repo.MusicTracks
                              .GroupBy(m => m.Genre)
                              .Select(g => new MusicTrackGrouping() { Name = g.Key.Tag, Count = g.Count() })
+                             .OrderBy(t => t.Name)
                              .ToList();
 
             if (tracks.Count() > 0)
@@ -42,6 +43,24 @@ namespace StockMusicMasters.Controllers
             var tracks = repo.MusicTrackInstrumentTags
                              .GroupBy(m => m.InstrumentTag.Tag)
                              .Select(g => new MusicTrackGrouping() { Name = g.Key, Count = g.Count() })
+                             .OrderBy(t => t.Name)
+                             .ToList();
+
+            if (tracks.Count() > 0)
+            {
+                return Ok(tracks);
+            }
+
+            return NotFound();
+        }
+
+        [Route("/api/gettotalsongsbymood")]
+        public IActionResult GetTotalSongsByMood()
+        {
+            var tracks = repo.MusicTrackMoodTags
+                             .GroupBy(m => m.MoodTag.Tag)
+                             .Select(g => new MusicTrackGrouping() { Name = g.Key, Count = g.Count() })
+                             .OrderBy(t => t.Name)
                              .ToList();
 
             if (tracks.Count() > 0)

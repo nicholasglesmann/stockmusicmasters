@@ -132,20 +132,20 @@
         {
             <div class="row justify-content-between">
                 <div class="col-12 col-md-8 col-lg-4 my-md-auto mt-1 text-center text-md-left">
-                    <h5 class="text-dark">@music.Name</h5>
+                    <h5 class="text-dark my-auto">@music.Name</h5>
                 </div>
                 <div class="col-12 col-md-4 col-lg-2 my-md-auto mb-1 text-center text-lg-left">
-                    <h6 class="font-italic text-dark">@music.Genre.Tag</h6>
+                    <h6 class="font-italic text-dark my-auto">@music.Genre.Tag</h6>
                 </div>
                 <div class="col-12 col-md-8 col-lg-4 my-md-auto my-2 text-center text-md-left text-lg-center">
-                    <audio class="audio-player" controls controlsList="nodownload">
+                    <audio class="manage-songs-audio-player align-middle" controls controlsList="nodownload">
                         <source src="~/files/musictracks/@music.FileName" />
                     </audio>
                 </div>
-                <div class="col-12 col-md-4 col-lg-2 my-md-auto my-2 text-center text-lg-right">
+                <div class="col-12 col-md-4 col-lg-2 my-lg-auto my-2 text-center text-lg-right">
                     <form action="/Home/Download" method="post">
                         <input class="form-control-plaintext" type="hidden" style="position: absolute;" name="fileName" readonly value="@music.FileName" />
-                        <button type="submit" class="btn btn-lg btn-primary"><i class="fas fa-file-download fa-2x"></i></button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-file-download fa-lg"></i></button>
                     </form>
                 </div>
             </div>
