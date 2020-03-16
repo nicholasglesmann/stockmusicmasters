@@ -4,10 +4,27 @@
     ViewData["ActivePage"] = ManageAdminNav.Index;
 }
 
-<h1>Here Is the Admin Index Page Loaded in the correct location</h1>
+<h1 class="jumbotron text-center py-4 font-weight-bold">Stock Music Masters Stats</h1>
 <div class="row">
     <div class="col-6">
-        <canvas id="myChart"></canvas>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">Total Tracks By Genre</h4>
+            </div>
+            <div class="card-body">
+                <canvas id="tracks-by-genre"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">Total Tracks By Instrument</h4>
+            </div>
+            <div class="card-body">
+                <canvas id="tracks-by-instrument"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 

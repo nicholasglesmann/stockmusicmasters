@@ -23,12 +23,26 @@ namespace StockMusicMasters.Controllers
         [Route("/api/gettotalsongsbygenre")]
         public IActionResult GetTotalSongsByGenre()
         {
-            var tracks = repo.MusicTracks.GroupBy(m => m.Genre)
-                                    .Select(g => new MusicTrackGrouping() { Name = g.Key.Tag, Count = g.Count() })
-                                    .ToList();
+            var tracks = repo.MusicTracks
+                             .GroupBy(m => m.Genre)
+                             .Select(g => new MusicTrackGrouping() { Name = g.Key.Tag, Count = g.Count() })
+                             .ToList();
 
-            //var tracks = from MusicTrack in repo.MusicTracks
-            //             group MusicTrack by MusicTrack.Genre;
+            if (tracks.Count() > 0)
+            {
+                return Ok(tracks);
+            }
+
+            return NotFound();
+        }
+
+        [Route("/api/gettotalsongsbyinstrument")]
+        public IActionResult GetTotalSongsByInstrument()
+        {
+            var tracks = repo.MusicTrackInstrumentTags
+                             .GroupBy(m => m.InstrumentTag.Tag)
+                             .Select(g => new MusicTrackGrouping() { Name = g.Key, Count = g.Count() })
+                             .ToList();
 
             if (tracks.Count() > 0)
             {

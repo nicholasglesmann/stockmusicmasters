@@ -5,66 +5,77 @@ using StockMusicMasters.Models;
 using StockMusicMasters.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace StockMusicMastersTests
 {
     public class MusicTests
     {
+        private readonly IWebHostEnvironment _webHostEnv;
+        private readonly ILogger<HomeController> _logger;
+        private readonly FakeMusicRepository _repo;
+        private readonly HomeController _controller;
 
         public MusicTests()
         {
+            var services = new ServiceCollection();
+            var serviceProvider = services.BuildServiceProvider();
 
+            _webHostEnv = serviceProvider.GetService<IWebHostEnvironment>();
+            _logger = serviceProvider.GetService<ILogger<HomeController>>();
+            _repo = new FakeMusicRepository();
+            _controller = new HomeController(_repo, _logger, _webHostEnv);
         }
-
 
         [Fact]
         public void TestMusicFilter()
         {
             // Arrange
-            var repo = new FakeMusicRepository();
-            var controller = new HomeController(repo);
 
             // Check that the repo has seed tracks
-            Assert.Equal(4, repo.MusicTracks.Count);
+            Assert.Equal(4, _repo.MusicTracks.Count);
+
 
             // Act 
-            repo.CurrentGenre = "Rock";
+            _repo.CurrentGenre = "Rock";
+
 
             // Assert
-            var actionResult = controller.Music() as ViewResult;
+            var actionResult = _controller.Music() as ViewResult;
             var currentTracks = (List<MusicTrack>) actionResult.ViewData.Model;
 
             // There should be no Rock tracks
             Assert.Empty(currentTracks);
 
 
-            repo.CurrentGenre = "Acoustic";
+            _repo.CurrentGenre = "Acoustic";
             
-            actionResult = controller.Music() as ViewResult;
+            actionResult = _controller.Music() as ViewResult;
             currentTracks = (List<MusicTrack>)actionResult.ViewData.Model;
 
             Assert.Single(currentTracks);
-
         }
 
         [Fact]
         public void TestClearFilters()
         {
             // Arrange
-            var repo = new FakeMusicRepository();
-            var controller = new HomeController(repo);
 
-            repo.CurrentGenre = "Rock";
-            repo.CurrentInstrument = "Acoustic Guitar";
-            repo.CurrentMood = "Happy";
+            _repo.CurrentGenre = "Rock";
+            _repo.CurrentInstrument = "Acoustic Guitar";
+            _repo.CurrentMood = "Happy";
+
 
             // Act
-            controller.ClearFilters();
+            _controller.ClearFilters();
+
 
             // Assert
-            Assert.Equal("", repo.CurrentGenre);
-            Assert.Equal("", repo.CurrentInstrument);
-            Assert.Equal("", repo.CurrentMood);
+            Assert.Equal("", _repo.CurrentGenre);
+            Assert.Equal("", _repo.CurrentInstrument);
+            Assert.Equal("", _repo.CurrentMood);
         }
     }
 }

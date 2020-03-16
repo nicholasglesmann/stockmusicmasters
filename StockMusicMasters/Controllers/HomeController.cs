@@ -17,19 +17,16 @@ namespace StockMusicMasters.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IWebHostEnvironment _webHostEnv;
 
-        IMusicRepository musicRepo;
-        IWebHostEnvironment _hostingEnvironment;
-
-        // For unit testing
-        //public HomeController(FakeMusicRepository repo) { musicRepo = repo;  }
+        private IMusicRepository musicRepo;
 
         public HomeController(IMusicRepository musicRepo, ILogger<HomeController> logger, 
-                              IWebHostEnvironment hostingEnvironment)
+                              IWebHostEnvironment env)
         {
             this.musicRepo = musicRepo;
             _logger = logger;
-            _hostingEnvironment = hostingEnvironment;
+            _webHostEnv = env;
         }
 
         public IActionResult Index()
@@ -123,7 +120,7 @@ namespace StockMusicMasters.Controllers
         public PhysicalFileResult GetFile(string fileName)
         {
 
-            string filePath = _hostingEnvironment.WebRootPath + "\\files\\musictracks\\" + fileName;
+            string filePath = _webHostEnv.WebRootPath + "\\files\\musictracks\\" + fileName;
 
             return PhysicalFile(filePath, MimeTypes.GetMimeType(filePath), Path.GetFileName(filePath));
         }

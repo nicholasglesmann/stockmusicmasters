@@ -28,6 +28,14 @@ namespace StockMusicMasters.Data
 
         private static List<GenreTag> genreList = new List<GenreTag>();
 
+        public List<MusicTrackInstrumentTag> MusicTrackInstrumentTags { get { return musicTrackInstrumentTags; } }
+
+        private static List<MusicTrackInstrumentTag> musicTrackInstrumentTags = new List<MusicTrackInstrumentTag>();
+
+        public List<MusicTrackMoodTag> MusicTrackMoodTags { get { return musicTrackMoodTags; } }
+
+        private static List<MusicTrackMoodTag> musicTrackMoodTags = new List<MusicTrackMoodTag>();
+
         public List<GenreTag> GenreList { get { return genreList; } }
 
         private static string currentMood = "";
@@ -66,6 +74,11 @@ namespace StockMusicMasters.Data
                 //moodList.Sort();
 
                 instrumentList.AddRange(context.InstrumentTags.OrderBy(i => i.Tag).ToList());
+
+                musicTrackInstrumentTags.AddRange(context.MusicTrackInstrumentTags.ToList());
+
+                musicTrackMoodTags.AddRange(context.MusicTrackMoodTags.ToList());
+
 
                 musicTracks = context.MusicTracks.Include(m => m.Genre).Include(x => x.MusicTrackMoodTags).Include(x => x.MusicTrackInstrumentTags).ToList();
 

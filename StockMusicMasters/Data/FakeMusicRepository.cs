@@ -40,6 +40,14 @@ namespace StockMusicMasters.Data
 
         public string CurrentGenre { get { return currentGenre; } set { currentGenre = value; } }
 
+        public List<MusicTrackInstrumentTag> MusicTrackInstrumentTags { get { return musicTrackInstrumentTags; } }
+
+        private static List<MusicTrackInstrumentTag> musicTrackInstrumentTags = new List<MusicTrackInstrumentTag>();
+
+        public List<MusicTrackMoodTag> MusicTrackMoodTags { get { return musicTrackMoodTags; } }
+
+        private static List<MusicTrackMoodTag> musicTrackMoodTags = new List<MusicTrackMoodTag>();
+
         public FakeMusicRepository()
         {
             if (MusicTracks.Count == 0)

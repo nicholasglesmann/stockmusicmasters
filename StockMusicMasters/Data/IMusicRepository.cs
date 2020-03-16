@@ -13,6 +13,8 @@ namespace StockMusicMasters.Data
         List<MoodTag> MoodList { get; }
         List<InstrumentTag> InstrumentList { get; }
         List<GenreTag> GenreList { get; }
+        List<MusicTrackInstrumentTag> MusicTrackInstrumentTags { get; }
+        List<MusicTrackMoodTag> MusicTrackMoodTags { get; }
         void SaveSongToDatabase(MusicTrack musicTrack);
         void UpdateSongInDatabase(MusicTrack musicTrack);
         void DeleteSongFromDatabase(MusicTrack musicTrack);

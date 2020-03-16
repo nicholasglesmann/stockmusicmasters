@@ -34,9 +34,6 @@ namespace StockMusicMasters.Data
                 GenreTag holiday = new GenreTag();
                 holiday.Tag = "Holiday";
                 context.GenreTags.Add(holiday);
-                GenreTag other = new GenreTag();
-                other.Tag = "Other";
-                context.GenreTags.Add(other);
                 GenreTag pop = new GenreTag();
                 pop.Tag = "Pop";
                 context.GenreTags.Add(pop);

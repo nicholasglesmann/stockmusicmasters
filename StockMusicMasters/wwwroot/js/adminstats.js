@@ -1,5 +1,6 @@
 ﻿$(document).ready(() => {
     let colors = dynamicColors(15);
+
     fetch('/api/gettotalsongsbygenre', {
         method: "GET",
         headers: {
@@ -18,82 +19,109 @@
             trackCount.push(genre.count);
         });
 
-        var ctx = document.getElementById('myChart');
+        var ctx = document.getElementById('tracks-by-genre');
         var data = {
             labels: genreLabels,
             datasets: [{
-                label: "Downloads by Genre",
+                label: "Tracks by Genre",
                 data: trackCount,
                 backgroundColor: colors.backgrounds,
+                hoverBackgroundColor: colors.hoverBackgrounds,
                 borderColor: colors.borders,
                 borderWidth: 1
             }]
         };
 
-        var options = {};
+        var options = {
+            legend: {
+                position: "right",
+                labels: {
+                    boxWidth: 30
+                }
+            }
+        };
 
         // For a pie chart
         var genreCountPieChart = new Chart(ctx, {
-            type: 'pie',
+            type: 'doughnut',
             data: data,
             options: options
         });
     });
+
+
+
+
+
+    fetch('/api/gettotalsongsbyinstrument', {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+        }
+    })
+        .then(data => { return data.json(); })
+        .then(json => {
+            console.log(json);
+
+            let instrumentLabels = [];
+            let trackCount = [];
+
+            json.forEach(instrument => {
+                instrumentLabels.push(instrument.name.split(' ')
+                                                     .map(w => w.charAt(0).toUpperCase() + w.substring(1))
+                                                     .join(' '));
+                trackCount.push(instrument.count);
+            });
+
+            var ctx = document.getElementById('tracks-by-instrument');
+            var data = {
+                labels: instrumentLabels,
+                datasets: [{
+                    label: "Tracks by Instrument",
+                    data: trackCount,
+                    backgroundColor: colors.backgrounds,
+                    hoverBackgroundColor: colors.hoverBackgrounds,
+                    borderColor: colors.borders,
+                    borderWidth: 1
+                }]
+            };
+
+            var options = {
+                legend: {
+                    position: "right",
+                    labels: {
+                        boxWidth: 30
+                    }
+                }
+            };
+
+            // For a pie chart
+            var instrumentCountPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: options
+            });
+        });
         
-
-
-    //var myChart = new Chart(ctx, {
-    //    type: 'bar',
-    //    data: {
-    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //        datasets: [{
-    //            label: '# of Votes',
-    //            data: [12, 19, 3, 5, 2, 3],
-    //            backgroundColor: [
-    //                'rgba(255, 99, 132, 0.2)',
-    //                'rgba(54, 162, 235, 0.2)',
-    //                'rgba(255, 206, 86, 0.2)',
-    //                'rgba(75, 192, 192, 0.2)',
-    //                'rgba(153, 102, 255, 0.2)',
-    //                'rgba(255, 159, 64, 0.2)'
-    //            ],
-    //            borderColor: [
-    //                'rgba(255, 99, 132, 1)',
-    //                'rgba(54, 162, 235, 1)',
-    //                'rgba(255, 206, 86, 1)',
-    //                'rgba(75, 192, 192, 1)',
-    //                'rgba(153, 102, 255, 1)',
-    //                'rgba(255, 159, 64, 1)'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        scales: {
-    //            yAxes: [{
-    //                ticks: {
-    //                    beginAtZero: true
-    //                }
-    //            }]
-    //        }
-    //    }
-    //});
 })
 
 function dynamicColors(numColors) {
-    let backgrounds = [];
-    let borders = [];
+    let backgrounds = ['#d7dfff', '#afbeff', '#889eff', '#607eff', '#8d99ae', '#2b2d42', '#584b53', '#a7b4ac'];
+    let hoverBackgrounds = ['#BEC6E6', '#96a5e6', '#6F85E6', '#4765E6'];
+    let borders = backgrounds;
+    //let borders = [];
 
-    for (let i = 0; i <= numColors; i++) {
-        var r = Math.floor(Math.random() * 255);
-        var g = Math.floor(Math.random() * 255);
-        var b = Math.floor(Math.random() * 255);
-        backgrounds.push("rgb(" + r + "," + g + "," + b + ", 1)");
-        borders.push("rgb(" + r + "," + g + "," + b + ", .2)");
-    }
+    //for (let i = 0; i <= numColors; i++) {
+    //    var r = Math.floor(Math.random() * 255);
+    //    var g = Math.floor(Math.random() * 255);
+    //    var b = Math.floor(Math.random() * 255);
+    //    backgrounds.push("rgb(" + r + "," + g + "," + b + ", 1)");
+    //    borders.push("rgb(" + r + "," + g + "," + b + ", .2)");
+    //}
 
     return {
         "backgrounds": backgrounds,
+        "hoverBackgrounds": hoverBackgrounds,
         "borders": borders
     };
 }
