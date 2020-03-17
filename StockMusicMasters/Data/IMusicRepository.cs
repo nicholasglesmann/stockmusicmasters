@@ -30,5 +30,10 @@ namespace StockMusicMasters.Data
         GenreTag GetGenreTagFromDataBase(string genre);
         MoodTag GetMoodTagFromDatabase(string mood);
         InstrumentTag GetInstrumentTagFromDatabase(string instrument);
+
+        void SortByNameAsc();
+        void SortByNameDesc();
+        void SortByGenreAsc();
+        void SortByGenreDesc();
     }
 }

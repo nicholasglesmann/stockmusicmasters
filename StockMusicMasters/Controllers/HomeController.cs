@@ -105,6 +105,30 @@ namespace StockMusicMasters.Controllers
             return RedirectToAction("Music");
         }
 
+        public RedirectToActionResult SortByNameAsc()
+        {
+            musicRepo.SortByNameAsc();
+            return RedirectToAction("Music");
+        }
+
+        public RedirectToActionResult SortByNameDesc()
+        {
+            musicRepo.SortByNameDesc();
+            return RedirectToAction("Music");
+        }
+
+        public RedirectToActionResult SortByGenreAsc()
+        {
+            musicRepo.SortByGenreAsc();
+            return RedirectToAction("Music");
+        }
+
+        public RedirectToActionResult SortByGenreDesc()
+        {
+            musicRepo.SortByGenreDesc();
+            return RedirectToAction("Music");
+        }
+
         [HttpPost]
         public PhysicalFileResult Download(string fileName)
         {

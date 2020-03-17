@@ -265,5 +265,25 @@ namespace StockMusicMasters.Data
         {
             throw new NotImplementedException();
         }
+
+        public void SortByNameAsc()
+        {
+            musicTracks = musicTracks.OrderBy(m => m.Name).ToList();
+        }
+
+        public void SortByNameDesc()
+        {
+            musicTracks = musicTracks.OrderByDescending(m => m.Name).ToList();
+        }
+
+        public void SortByGenreAsc()
+        {
+            musicTracks = musicTracks.OrderBy(m => m.Genre.Tag).ToList();
+        }
+
+        public void SortByGenreDesc()
+        {
+            musicTracks = musicTracks.OrderByDescending(m => m.Genre.Tag).ToList();
+        }
     }
 }

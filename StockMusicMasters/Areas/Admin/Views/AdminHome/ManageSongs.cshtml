@@ -18,7 +18,7 @@
             <h6 class="text-dark my-auto">@(trackCounter++). @musicTrack.Name</h6>
         </div>
         <div class="col-12 col-lg-3 my-2 my-lg-auto px-0 mx-0 text-center">
-            <audio class="manage-songs-audio-player align-middle" controls controlsList="nodownload">
+            <audio class="manage-songs-audio-player align-middle" controls controlsList="nodownload" preload="none">
                 <source src="~/files/musictracks/@musicTrack.FileName" />
             </audio>
         </div>

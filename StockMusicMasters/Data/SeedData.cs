@@ -25,9 +25,9 @@ namespace StockMusicMasters.Data
                 GenreTag cinematic = new GenreTag();
                 cinematic.Tag = "Cinematic";
                 context.GenreTags.Add(cinematic);
-                GenreTag coporate = new GenreTag();
-                coporate.Tag = "Coporate";
-                context.GenreTags.Add(coporate);
+                GenreTag corporate = new GenreTag();
+                corporate.Tag = "Corporate";
+                context.GenreTags.Add(corporate);
                 GenreTag electronica = new GenreTag();
                 electronica.Tag = "Electronica";
                 context.GenreTags.Add(electronica);

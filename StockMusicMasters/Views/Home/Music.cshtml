@@ -110,10 +110,26 @@
 
     <div class="row justify-content-between">
         <div class="col-12 col-md-8 col-lg-4 my-md-auto mt-1 text-md-left d-none d-lg-block">
-            <h3 class="font-weight-bolder text-dark">Song Name</h3>
+            <div class="row text-dark">
+                <div class="col pr-0 my-auto">
+                    <h3 class="font-weight-bolder">Song Name</h3>
+                </div>
+                <div class="col p-0 my-auto d-flex flex-column text-left">
+                    <a asp-action="SortByNameAsc" asp-controller="Home"><i class="fas fa-caret-up fa-lg"></i></a>
+                    <a asp-action="SortByNameDesc" asp-controller="Home"><i class="fas fa-caret-down fa-lg"></i></a>
+                </div>
+            </div>
         </div>
         <div class="col-12 col-md-4 col-lg-2 my-md-auto mb-1 text-lg-left d-none d-lg-block">
-            <h3 class="font-weight-bolder text-dark">Genre</h3>
+            <div class="row text-dark">
+                <div class="col my-auto">
+                    <h3 class="font-weight-bolder">Genre</h3>
+                </div>
+                <div class="col p-0 pl-2 my-auto d-flex flex-column text-left">
+                    <a asp-action="SortByGenreAsc" asp-controller="Home"><i class="fas fa-caret-up fa-lg"></i></a>
+                    <a asp-action="SortByGenreDesc" asp-controller="Home"><i class="fas fa-caret-down fa-lg"></i></a>
+                </div>
+            </div>
         </div>
         <div class="col-12 col-md-8 col-lg-4 my-md-auto my-2 text-lg-center d-none d-lg-block">
             <h3 class="font-weight-bolder text-dark">Listen Now</h3>
@@ -124,7 +140,7 @@
     </div>
     <div class="row d-none d-lg-block">
         <div class="col">
-            <hr />
+            <hr class="mt-2" />
         </div>
     </div>
     <div id="music-list">
@@ -138,7 +154,7 @@
                     <h6 class="font-italic text-dark my-auto">@music.Genre.Tag</h6>
                 </div>
                 <div class="col-12 col-md-8 col-lg-4 my-md-auto my-2 text-center text-md-left text-lg-center">
-                    <audio class="manage-songs-audio-player align-middle" controls controlsList="nodownload">
+                    <audio class="manage-songs-audio-player align-middle" controls controlsList="nodownload" preload="none">
                         <source src="~/files/musictracks/@music.FileName" />
                     </audio>
                 </div>
