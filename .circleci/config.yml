@@ -12,5 +12,7 @@
        - run:
            name: "test"
            command: |
-             echo ${webdeploy}
+             echo 'export WEBDEPLOY=$webdeploy' >> ~/.bashrc
+             source ~/.bashrc
+             echo $WEBDEPLOY
 
