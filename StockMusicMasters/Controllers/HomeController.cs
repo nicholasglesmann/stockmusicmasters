@@ -45,7 +45,6 @@ namespace StockMusicMasters.Controllers
         }
 
         [Route("music")]
-        [Authorize(Roles = "Standard,Admin")]
         public IActionResult Music()
         {
             // get the list of moods and store it in viewdata for music view
