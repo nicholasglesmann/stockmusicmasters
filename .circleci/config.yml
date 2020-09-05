@@ -24,4 +24,5 @@
              sed -i s@DESTINATION_CONNECTION_STRINGS@${DESTINATION_CONNECTION_STRINGS}@ webdeploy.pubxml
              sed -i s@EFMIGRATIONS@${EFMIGRATIONS}@ webdeploy.pubxml
              echo "$(cat webdeploy.pubxml)"
+             dotnet build StockMusicMasters.sln -nologo -p:PublishProfile=webdeploy.pubxml -p:DeployOnBuild=true -p:platform="Any CPU" -p:configuration="Release"
            shell: bash.exe
