@@ -19,9 +19,9 @@
              echo 'export EFMIGRATIONS=$EFMigrations' >> $BASH_ENV
              source $BASH_ENV
              sed -i s@MSDEPLOY_SERVICE_URL@${MSDEPLOY_SERVICE_URL}@ webdeploy.pubxml
-			          sed -i s@USERNAME@${USERNAME}@ webdeploy.pubxml
-		           sed -i s@PASSWORD@${PASSWORD}@ webdeploy.pubxml
-			          sed -i s@DESTINATION_CONNECTION_STRINGS@${DESTINATION_CONNECTION_STRINGS}@ webdeploy.pubxml
-		           sed -i s@EFMIGRATIONS@${EFMIGRATIONS}@ webdeploy.pubxml
+             sed -i s@USERNAME@${USERNAME}@ webdeploy.pubxml
+             sed -i s@PASSWORD@${PASSWORD}@ webdeploy.pubxml
+             sed -i s@DESTINATION_CONNECTION_STRINGS@${DESTINATION_CONNECTION_STRINGS}@ webdeploy.pubxml
+             sed -i s@EFMIGRATIONS@${EFMIGRATIONS}@ webdeploy.pubxml
              echo "$(cat webdeploy.pubxml)"
            shell: bash.exe
