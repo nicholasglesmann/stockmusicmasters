@@ -9,6 +9,10 @@
     
      steps:
        - checkout
+       - run: 
+         name: "test"
+         command: |
+           echo $webdeploy
        - run: echo ${WEBDEPLOY}
        - run: echo $WEBDEPLOY
        - run: echo $webdeploy >> $publishprofile
