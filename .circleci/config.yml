@@ -12,5 +12,5 @@
        - run:
            name: "test"
            command: |
-             echo $webdeploy
+             echo ${webdeploy}
 
