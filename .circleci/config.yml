@@ -12,8 +12,8 @@
        - run:
            name: "test"
            command: |
-             echo 'export WEBDEPLOY=$webdeploy' >> $BASH_ENV
+	            echo 'export MSDEPLOY_SERVICE_URL=$$MSDeployServiceURL' >> $BASH_ENV
              source $BASH_ENV
-             echo $UserName
-             dotnet build StockMusicMasters.sln -nologo -p:PublishProfile='$WEBDEPLOY' -p:DeployOnBuild=true -p:platform="Any CPU" -p:configuration="Release"
+             sed -i 's/MSDEPLOY_SERVICE_URL/$MSDEPLOY_SERVICE_URL' webdeploy.xml
+             echo $webdeploy.xml
            shell: bash.exe
