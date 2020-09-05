@@ -14,6 +14,6 @@
            command: |
              echo 'export MSDEPLOY_SERVICE_URL=$$MSDeployServiceURL' >> $BASH_ENV
              source $BASH_ENV
-             sed -i 's/MSDEPLOY_SERVICE_URL/$MSDEPLOY_SERVICE_URL/' $CIRCLE_WORKING_DIRECTORY/webdeploy.xml
-             echo "$(cat $CIRCLE_WORKING_DIRECTORY/webdeploy.xml)"
+             sed -i 's/MSDEPLOY_SERVICE_URL/$MSDEPLOY_SERVICE_URL/' webdeploy.pubxml
+             echo "$(cat webdeploy.pubxml)"
            shell: bash.exe
