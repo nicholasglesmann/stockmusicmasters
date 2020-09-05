@@ -11,8 +11,8 @@
        - checkout
        - run:
            name: "test"
+           environment:
+             WEBDEPLOY: $webdeploy
            command: |
-             echo 'export WEBDEPLOY=$webdeploy' >> ~/.bashrc
-             source ~/.bashrc
              echo $WEBDEPLOY
 
