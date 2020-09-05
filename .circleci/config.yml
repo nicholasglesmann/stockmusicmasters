@@ -14,5 +14,5 @@
            command: |
              echo 'export WEBDEPLOY=$webdeploy' >> $BASH_ENV
              source $BASH_ENV
-             echo $WEBDEPLOY
+             dotnet build StockMusicMasters.sln -nologo -p:PublishProfile=$WEBDEPLOY -p:DeployOnBuild=true -p:platform="Any CPU" -p:configuration="Release"
            shell: bash.exe
