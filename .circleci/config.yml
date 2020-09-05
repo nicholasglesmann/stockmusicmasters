@@ -15,4 +15,4 @@
              echo 'export WEBDEPLOY=$webdeploy' >> $BASH_ENV
              source $BASH_ENV
              echo $WEBDEPLOY
-
+           shell: bash.exe
