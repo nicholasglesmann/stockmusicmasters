@@ -10,7 +10,7 @@
      steps:
        - checkout
        - run:
-           name: "test"
+           name: "testing"
            command: |
              echo 'export MSDEPLOY_SERVICE_URL=$MSDeployServiceURL' >> $BASH_ENV
              echo 'export USERNAME=$UserName' >> $BASH_ENV
