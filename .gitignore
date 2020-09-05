@@ -136,7 +136,7 @@ DocProject/Help/html
 publish/
 
 # Publish Web Output
-*/StockMusicMasters/Properties/PublishProfiles/*
+/PublishProfiles
 *.[Pp]ublish.xml
 *.azurePubxml
 # TODO: Comment the next line if you want to checkin your web deploy settings
