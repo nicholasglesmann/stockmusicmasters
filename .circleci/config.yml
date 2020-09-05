@@ -12,7 +12,7 @@
        - run:
            name: "test"
            command: |
-             echo 'export MSDEPLOY_SERVICE_URL=$$MSDeployServiceURL' >> $BASH_ENV
+             echo 'export MSDEPLOY_SERVICE_URL=$MSDeployServiceURL' >> $BASH_ENV
              source $BASH_ENV
              sed -i 's/MSDEPLOY_SERVICE_URL/$MSDEPLOY_SERVICE_URL/' webdeploy.pubxml
              echo "$(cat webdeploy.pubxml)"
