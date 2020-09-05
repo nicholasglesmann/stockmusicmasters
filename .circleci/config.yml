@@ -11,8 +11,8 @@
        - checkout
        - run:
            name: "test"
-           environment:
-             WEBDEPLOY: $webdeploy
            command: |
+             echo 'export WEBDEPLOY=$webdeploy' >> $BASH_ENV
+             source $BASH_ENV
              echo $WEBDEPLOY
 
