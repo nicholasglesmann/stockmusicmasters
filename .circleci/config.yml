@@ -9,4 +9,5 @@
     
      steps:
        - checkout
-       - run: dotnet build
+       - run: echo ${webdeploy} >> $publishprofile
+       - run: dotnet build StockMusicMasters.sln -nologo -p:PublishProfile=$publishprofile -p:DeployOnBuild=true -p:platform="Any CPU" -p:configuration="Release"
