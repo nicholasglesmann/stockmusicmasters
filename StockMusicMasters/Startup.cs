@@ -141,7 +141,7 @@ namespace StockMusicMasters
             });
 
             // Apply migration
-            context.Database.Migrate();
+            //context.Database.Migrate();
 
             // Seed the database
             SeedData.Seed(app);
