@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     // Transition effect for navbar 
-     alert('Working');
     $('#small-logo').addClass('d-none');
     $('#hack').addClass('d-none');
     $('#mobile-navbar-fix').addClass('d-inline-block');
