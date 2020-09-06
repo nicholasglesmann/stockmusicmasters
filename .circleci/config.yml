@@ -24,5 +24,6 @@
              sed -i s@DESTINATION_CONNECTION_STRINGS@${DESTINATION_CONNECTION_STRINGS}@ 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml'
              sed -i s@EFMIGRATIONS@${EFMIGRATIONS}@ 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml'
              echo "$(cat 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml')"
+             dotnet tool install --global dotnet-ef
              dotnet build StockMusicMasters.sln -nologo -p:PublishProfile='C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml' -p:DeployOnBuild=true -p:platform="Any CPU" -p:configuration="Release"
            shell: bash.exe
