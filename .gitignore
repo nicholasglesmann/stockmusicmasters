@@ -20,7 +20,16 @@ x86/
 build/
 bld/
 [Bb]in/
-[Oo]bj/
+![Oo]bj/
+[Oo]bj/*
+![Oo]bj/Release
+[Oo]bj/Release/*
+![Oo]bj/Release/netcoreapp3.1
+[Oo]bj/Release/netcoreapp3.1/*
+![Oo]bj/Release/netcoreapp3.1/PubTmp
+[Oo]bj/Release/netcoreapp3.1/PubTmp/*
+![Oo]bj/Release/netcoreapp3.1/PubTmp/EFSQLScripts
+[Oo]bj/Release/netcoreapp3.1/PubTmp/EFSQLScripts/*.sql
 
 # Visual Studio 2015 cache/options directory
 .vs/
