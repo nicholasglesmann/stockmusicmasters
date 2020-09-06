@@ -18,11 +18,12 @@
              echo 'export DESTINATION_CONNECTION_STRINGS=$DestinationConnectionStrings' >> $BASH_ENV
              echo 'export EFMIGRATIONS=$EFMigrations' >> $BASH_ENV
              source $BASH_ENV
-             sed -i s@MSDEPLOY_SERVICE_URL@${MSDEPLOY_SERVICE_URL}@ webdeploy.pubxml
-             sed -i s@USERNAME@${USERNAME}@ webdeploy.pubxml
-             sed -i s@PASSWORD@${PASSWORD}@ webdeploy.pubxml
-             sed -i s@DESTINATION_CONNECTION_STRINGS@${DESTINATION_CONNECTION_STRINGS}@ webdeploy.pubxml
-             sed -i s@EFMIGRATIONS@${EFMIGRATIONS}@ webdeploy.pubxml
-             echo "$(cat webdeploy.pubxml)"
-             dotnet build StockMusicMasters.sln -nologo -p:PublishProfile=webdeploy.pubxml -p:DeployOnBuild=true -p:platform="Any CPU" -p:configuration="Release"
+             sed -i s@MSDEPLOY_SERVICE_URL@${MSDEPLOY_SERVICE_URL}@ 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml'
+             sed -i s@USERNAME@${USERNAME}@ 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml'
+             sed -i s@PASSWORD@${PASSWORD}@ 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml'
+             sed -i s@DESTINATION_CONNECTION_STRINGS@${DESTINATION_CONNECTION_STRINGS}@ 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml'
+             sed -i s@EFMIGRATIONS@${EFMIGRATIONS}@ 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml'
+             echo "$(cat 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml')"
+             dotnet tool install --global dotnet-ef
+             dotnet build StockMusicMasters.sln -nologo -p:PublishProfile='C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml' -p:DeployOnBuild=true -p:platform="Any CPU" -p:configuration="Release"
            shell: bash.exe
