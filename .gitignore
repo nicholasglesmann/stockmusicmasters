@@ -22,6 +22,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+
 # Visual Studio 2015 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
@@ -136,11 +137,12 @@ DocProject/Help/html
 publish/
 
 # Publish Web Output
+StockMusicMasters/Properties/PublishProfiles/stockmusicmasters*
 *.[Pp]ublish.xml
 *.azurePubxml
 # TODO: Comment the next line if you want to checkin your web deploy settings
 # but database connection strings (with potential passwords) will be unencrypted
-*.pubxml
+#*.pubxml
 *.publishproj
 
 # NuGet Packages
