@@ -26,5 +26,5 @@
              echo "$(cat 'C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml')"
              dotnet tool install --global dotnet-ef
              dotnet restore
-             dotnet build StockMusicMasters.sln -nologo -v:d -p:PublishProfile='C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml' -p:DeployOnBuild=true -p:platform="Any CPU" -p:configuration="Release"
+            #  dotnet build StockMusicMasters.sln -nologo -v:d -p:PublishProfile='C:\Users\circleci\project\StockMusicMasters\Properties\PublishProfiles\webdeploy.pubxml' -p:DeployOnBuild=true -p:platform="Any CPU" -p:configuration="Release"
            shell: bash.exe
